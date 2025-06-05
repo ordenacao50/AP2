@@ -1,0 +1,112 @@
+#include <iostream>
+#include <vector>
+#include <string>
+
+int buscaLinear(const std::vector<std::string>& lista, const std::string& tituloBuscado) {
+    for (size_t i = 0; i < lista.size(); i++) {
+        if (lista[i] == tituloBuscado) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
+}
+
+int buscaBinaria(const std::vector<std::string>& listaOrdenada, const std::string& tituloBuscado) {
+    int inicio = 0;
+    int fim = static_cast<int>(listaOrdenada.size()) - 1;
+    while (inicio <= fim) {
+        int meio = inicio + (fim - inicio) / 2;
+        if (listaOrdenada[meio] == tituloBuscado) {
+            return meio;
+        } else if (listaOrdenada[meio] < tituloBuscado) {
+            inicio = meio + 1;
+        } else {
+            fim = meio - 1;
+        }
+    }
+    return -1;
+}
+
+
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+struct Paciente {
+    string nome;
+    int idade;
+    string cpf;
+};
+
+void cadastrarPaciente(vector<Paciente>& pacientes, const string& nome, int idade, const string& cpf) {
+    Paciente p = {nome, idade, cpf};
+    pacientes.push_back(p);
+}
+
+int buscarPacientePorNome(const vector<Paciente>& pacientes, const string& nomeBuscado) {
+    for (size_t i = 0; i < pacientes.size(); i++) {
+        if (pacientes[i].nome == nomeBuscado) {
+            return static_cast<int>(i);
+        }
+    }
+    return -1;
+}
+
+void listarPacientes(const vector<Paciente>& pacientes) {
+    for (const auto& p : pacientes) {
+        cout << "Nome: " << p.nome << ", Idade: " << p.idade << ", CPF: " << p.cpf << endl;
+    }
+}
+
+// Exemplo de uso
+int main() {
+    vector<Paciente> pacientes;
+    cadastrarPaciente(pacientes, "Ana", 30, "123.456.789-00");
+    cadastrarPaciente(pacientes, "Bruno", 45, "987.654.321-11");
+
+    cout << "Lista de pacientes:" << endl;
+    listarPacientes(pacientes);
+
+    string busca;
+    cout << "Digite um nome para buscar: ";
+    getline(cin, busca);
+
+    int idx = buscarPacientePorNome(pacientes, busca);
+    if (idx != -1) {
+        cout << "Paciente encontrado: " << pacientes[idx].nome << ", CPF: " << pacientes[idx].cpf << endl;
+    } else {
+        cout << "Paciente não encontrado." << endl;
+    }
+
+    return 0;
+}
+
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+using namespace std;
+
+vector<int> gerarVetorAleatorio(int tamanho, int min, int max) {
+    vector<int> vetor;
+    for (int i = 0; i < tamanho; i++) {
+        vetor.push_back(rand() % (max - min + 1) + min);
+    }
+    return vetor;
+}
+
+void bubbleSort(vector<int>& v) {
+    int n = v.size();
+    bool trocou;
+    for (int i = 0; i < n - 1; i++) {
+        trocou = false;
+        for (int j = 0; j < n - 1 - i; j++) {
+            if (v[j] > v[j + 1]) {
+                swap(v[j], v[j + 1]);
+                trocou = true;
+            }
+        }
+        if (!trocou) break;
+    }
+}
